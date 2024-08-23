@@ -24,7 +24,7 @@ jobs:
         with:
           # At least one of 'agent_zone' and 'agent_tags' should be set
           agent_zone: konrad-gitops
-          agent_tags: 'gitops_environment=test'
+          agent_tags: gitops_environment=test
         env:
           INSTANA_API_ENDPOINT: ${{ secrets.INSTANA_API_ENDPOINT }}
           INSTANA_API_TOKEN: ${{ secrets.INSTANA_API_TOKEN }}
