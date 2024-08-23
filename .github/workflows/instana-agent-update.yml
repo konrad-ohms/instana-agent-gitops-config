@@ -9,14 +9,14 @@
 ### For more information on the Instana GitHub action for GitOps update, refer to:
 ### https://github.com/instana/github-action-update-agent-configurations
 
-name: Instana GitOps update
+name: Instana GitOps update - Prod
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  build:
+  push-gitops-config:
     runs-on: ubuntu-latest
 
     steps:
