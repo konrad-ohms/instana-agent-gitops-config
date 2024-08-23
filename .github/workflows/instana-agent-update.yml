@@ -16,7 +16,7 @@ on:
     branches: [ test ]
 
 jobs:
-  build:
+  push-gitops-config:
     runs-on: ubuntu-latest
 
     steps:
