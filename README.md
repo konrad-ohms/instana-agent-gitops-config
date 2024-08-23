@@ -17,3 +17,18 @@ curl \
     --header "authorization: apiToken ${INSTANA_API_TOKEN}" \
     "${INSTANA_API_ENDPOINT}/api/host-agent/configuration?query=entity.zone:konrad-gitops%20AND%20entity.tag:gitops_environment=prod"
 ```
+
+Onboard a new host agent as test environment
+
+```
+curl -o setup_agent.sh https://setup.instana.io/agent && chmod 700 ./setup_agent.sh && sudo ./setup_agent.sh \
+    -a xxx \
+    -d xxx \
+    -t dynamic \
+    -e ingress-red-saas.instana.io:443 \
+    -s \
+    -g https://github.com/konrad-ohms/instana-agent-gitops-config.git \
+    -b test
+```
+
+A reboot of the agent might be required after first connection to get the correct agent version.
