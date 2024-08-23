@@ -3,27 +3,17 @@ Config repo to control updates to instana agents
 
 See: https://www.ibm.com/docs/en/instana-observability/current?topic=agents-git-based-configuration-management
 
-```
-# Please enter proper values for all --env arguments.
-docker run \
-    --detach \
-    --name instana-agent \
-    --volume /var/run:/var/run \
-    --volume /run:/run \
-    --volume /dev:/dev:ro \
-    --volume /sys:/sys:ro \
-    --volume /var/log:/var/log:ro \
-    --privileged \
-    --net=host \
-    --pid=host \
-    --env="INSTANA_AGENT_ENDPOINT=xxx.instana.io" \
-    --env="INSTANA_AGENT_ENDPOINT_PORT=443" \
-    --env="INSTANA_AGENT_KEY=xxx" \
-    --env="INSTANA_DOWNLOAD_KEY=xxx" \
-    --env="INSTANA_AGENT_ZONE=konrad-fyre" \
-    --env="INSTANA_GIT_REMOTE_BRANCH=main" \
-    --env="INSTANA_GIT_REMOTE_PASSWORD=xxx" \
-    --env="INSTANA_GIT_REMOTE_REPOSITORY=https://github.com/xxx/instana-agent-gitops-config.git" \
-    --env="INSTANA_GIT_REMOTE_USERNAME=xxx" \
-    icr.io/instana/agent
+Install the host agent and configure this repo and branch main or test via the webui.
+
+To manually force an update to the hosts, the API can be invoked directly as well which is especially interesting, if GitHub Actions is not an option.
+
+This curl command forces an update to production instances and will reboot the agents
+```!/bin/bash
+INSTANA_API_TOKEN=xxx
+INSTANA_API_ENDPOINT=xxx
+curl \
+    -v \
+    --request POST \
+    --header "authorization: apiToken ${INSTANA_API_TOKEN}" \
+    "${INSTANA_API_ENDPOINT}/api/host-agent/configuration?query=entity.zone:konrad-gitops%20AND%20entity.tag:gitops_environment=prod"
 ```
