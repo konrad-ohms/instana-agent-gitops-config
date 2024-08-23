@@ -13,7 +13,7 @@ name: Instana GitOps update
 
 on:
   push:
-    branches: [ main, test ]
+    branches: [ main ]
 
 jobs:
   build:
