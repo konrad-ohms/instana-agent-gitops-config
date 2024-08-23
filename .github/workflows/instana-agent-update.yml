@@ -23,7 +23,7 @@ jobs:
       - uses: instana/github-action-update-agent-configurations@v1.0.0
         with:
           # At least one of 'agent_zone' and 'agent_tags' should be set
-          agent_zone: konrad-test
+          agent_zone: konrad-gitops
           agent_tags: 'gitops_environment=prod'
         env:
           INSTANA_API_ENDPOINT: ${{ secrets.INSTANA_API_ENDPOINT }}
