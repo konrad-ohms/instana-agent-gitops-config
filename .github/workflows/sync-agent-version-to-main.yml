@@ -28,15 +28,24 @@ jobs:
           echo "Showing content of current AgentBootstrap"
           cat instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
           rm -f /tmp/com.instana.agent.bootstrap.AgentBootstrap.cfg
+          echo "Create temporary copy of the configuration file"
           cp instana/com.instana.agent.bootstrap.AgentBootstrap.cfg /tmp/
           echo "Checking out main branch"
           git fetch origin main
           git checkout main
           echo "Creating new branch from main"
           git checkout -b promote-test-to-main
-          echo "Copy updated config to new branch"
+          echo "Replace config file on main"
           rm -f instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
           cp -f /tmp/com.instana.agent.bootstrap.AgentBootstrap.cfg instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
+          echo "Check if file was changed"
+          if [[ `git status --porcelain` ]]; then
+            echo "The file has changed, continue to commit and push"
+          else
+            echo "The file is unchanged, main is already in sync with test branch, no further action needed"
+            exit 0
+          fi
+          
           echo "Setting git author"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git config --global user.name "${GITHUB_ACTOR}"
