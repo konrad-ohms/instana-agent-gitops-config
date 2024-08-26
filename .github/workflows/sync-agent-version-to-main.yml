@@ -26,3 +26,15 @@ jobs:
           pwd
           echo $GITHUB_WORKSPACE
           env
+          ls
+          cat instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
+          TMP_BOOTSTRAP_DIR=$(mktemp)
+          cp instana/com.instana.agent.bootstrap.AgentBootstrap.cfg ${TMP_BOOTSTRAP_DIR}/
+          git checkout main
+          git checkout -b promote-test-to-main
+          cp -f ${TMP_BOOTSTRAP_DIR}/com.instana.agent.bootstrap.AgentBootstrap.cfg instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
+          git add instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
+          git commit -m "chore: Sync AgentBootstrap from current test branch"
+          git push origin -f promote-test-to-main
+          
+          
