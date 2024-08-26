@@ -39,6 +39,9 @@ jobs:
           echo "Copy updated config to new branch"
           rm -f instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
           cp -f /tmp/com.instana.agent.bootstrap.AgentBootstrap.cfg instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
+          echo "Setting git author"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git config --global user.name "${GITHUB_ACTOR}"
           echo "Commiting change"
           git add instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
           git commit -m "chore: Sync AgentBootstrap from current test branch"
