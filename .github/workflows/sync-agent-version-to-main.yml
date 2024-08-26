@@ -23,10 +23,6 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Copy AgentBootrap to main
         run: |
-          pwd
-          echo $GITHUB_WORKSPACE
-          env
-          ls
           echo "Showing content of current AgentBootstrap"
           cat instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
           rm -f /tmp/com.instana.agent.bootstrap.AgentBootstrap.cfg
@@ -34,26 +30,26 @@ jobs:
           echo "Checking out main branch"
           git fetch origin main
           git checkout main
-          #echo "Creating new branch from main"
-          #git checkout -b promote-test-to-main
+          echo "Creating new branch from main"
+          git checkout -b promote-test-to-main
           echo "Copy updated config to new branch"
           rm -f instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
           cp -f /tmp/com.instana.agent.bootstrap.AgentBootstrap.cfg instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
-          #echo "Setting git author"
-          #git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          #git config --global user.name "${GITHUB_ACTOR}"
-          #echo "Commiting change"
-          #git add instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
-          #git commit -m "chore: Sync AgentBootstrap from current test branch"
-          #echo "Push change to feature branch"
-          #git push origin -f promote-test-to-main
+          echo "Setting git author"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git config --global user.name "${GITHUB_ACTOR}"
+          echo "Commiting change"
+          git add instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
+          git commit -m "chore: Sync AgentBootstrap from current test branch"
+          echo "Push change to feature branch"
+          git push origin -f promote-test-to-main
+          gh pr create -t "chore: Sync AgentBootstrap from current test branch" -B main
+      # - name: Create Pull Request
+      #   uses: peter-evans/create-pull-request@v6
+      #   with:
+      #     branch: "promote-test-to-main"
+      #     commit-message: |
+      #       Promote agent version from test to main
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          branch: "promote-test-to-main"
-          commit-message: |
-            Promote agent version from test to main
-
-            Transfers com.instana.agent.bootstrap.AgentBootstrap.cfg from the test branch to main
+      #       Transfers com.instana.agent.bootstrap.AgentBootstrap.cfg from the test branch to main
           
