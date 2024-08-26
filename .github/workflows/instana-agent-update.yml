@@ -13,6 +13,9 @@ name: Instana GitOps update - Prod
 
 on:
   push:
+    paths-ignore:
+      - 'renovate.json'
+      - 'README.md'
     branches: [ main ]
 
 jobs:
