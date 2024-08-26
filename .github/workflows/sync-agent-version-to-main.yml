@@ -32,6 +32,7 @@ jobs:
           rm -f /tmp/com.instana.agent.bootstrap.AgentBootstrap.cfg
           cp instana/com.instana.agent.bootstrap.AgentBootstrap.cfg /tmp/
           echo "Checking out main branch"
+          git fetch origin main
           git checkout main
           echo "Creating new branch from main"
           git checkout -b promote-test-to-main
