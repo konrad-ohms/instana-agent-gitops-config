@@ -45,7 +45,7 @@ jobs:
           git commit -m "chore: Sync AgentBootstrap from current test branch"
           echo "Push change to feature branch"
           git push origin -f promote-test-to-main
-          gh pr create -t "chore: Sync AgentBootstrap from current test branch" -B main
+          gh pr create -t "chore: Sync AgentBootstrap from current test branch" -B main --title "Sync AgentBootstrap from current test branch" --body "Updated config file"
       # - name: Create Pull Request
       #   uses: peter-evans/create-pull-request@v6
       #   with:
