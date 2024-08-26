@@ -27,14 +27,21 @@ jobs:
           echo $GITHUB_WORKSPACE
           env
           ls
+          echo "Showing content of current AgentBootstrap"
           cat instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
-          TMP_BOOTSTRAP_DIR=$(mktemp)
-          cp instana/com.instana.agent.bootstrap.AgentBootstrap.cfg ${TMP_BOOTSTRAP_DIR}/
+          rm -f /tmp/com.instana.agent.bootstrap.AgentBootstrap.cfg
+          cp instana/com.instana.agent.bootstrap.AgentBootstrap.cfg /tmp/
+          echo "Checking out main branch"
           git checkout main
+          echo "Creating new branch from main"
           git checkout -b promote-test-to-main
-          cp -f ${TMP_BOOTSTRAP_DIR}/com.instana.agent.bootstrap.AgentBootstrap.cfg instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
+          echo "Copy updated config to new branch"
+          rm -f instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
+          cp -f /tmp/com.instana.agent.bootstrap.AgentBootstrap.cfg instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
+          echo "Commiting change"
           git add instana/com.instana.agent.bootstrap.AgentBootstrap.cfg
           git commit -m "chore: Sync AgentBootstrap from current test branch"
+          echo "Push change to feature branch"
           git push origin -f promote-test-to-main
           
           
