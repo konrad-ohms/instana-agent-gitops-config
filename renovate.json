@@ -1,7 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "baseBranches": ["test"],
-  "//schedule": ["after 10pm and before 5am every weekday"],
   "customManagers": [
     {
       "customType": "regex",
