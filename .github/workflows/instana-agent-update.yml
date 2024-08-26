@@ -13,6 +13,10 @@ name: Instana GitOps update - Test
 
 on:
   push:
+    paths-ignore:
+      - 'renovate.json'
+      - 'README.md'
+      - '.github/workflows/sync-agent-version-to-main.yml'
     branches: [ test ]
 
 jobs:
