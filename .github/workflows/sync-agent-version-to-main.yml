@@ -47,6 +47,6 @@ jobs:
           git push origin -f promote-test-to-main
           UPDATED_VERSION=$(cat instana/com.instana.agent.bootstrap.AgentBootstrap.cfg  | grep "version = " | grep -v "#" | cut -c11-)
           PR_TITLE="chore(deps): Update Instana Agent Production to v${UPDATED_VERSION}"
-          PR_BODY="Automated sync of instana/com.instana.agent.bootstrap.AgentBootstrap.cfg from branch \"test\" to \"main\". Make sure that the test environment works as expected before approving and merging the change. Merging will trigger an production update including an agent restart. This update was driven by [this GitHub Action Workflow](https://github.com/konrad-ohms/instana-agent-gitops-config/blob/test/.github/workflows/sync-agent-version-to-main.yml)."
+          PR_BODY="Automated sync of instana/com.instana.agent.bootstrap.AgentBootstrap.cfg from branch \"test\" to \"main\". Make sure that the test environment works as expected before approving and merging the change. Merging will trigger an production update including an agent restart. This update was driven by [this GitHub Action Workflow](https://github.com/konrad-ohms/instana-agent-gitops-config/blob/test/.github/workflows/sync-agent-version-to-main.yml). Available tags can be found on the [instana/agent-updates](https://github.com/instana/agent-updates/tags) repository."
           gh pr create -B main --title "${PR_TITLE}" --body "${PR_BODY}" --label "production" || \
           gh pr edit -B main --title "${PR_TITLE}" --body "${PR_BODY}" --add-label "production"
